@@ -81,7 +81,7 @@ public class JwtAuthenticationFilter implements Filter {
                 .withClaim("id", userPS.getId())
                 .withClaim("username", userPS.getUsername())
                 .sign(Algorithm.HMAC512("뺑소니"));
-        log.debug("디버그 : " + jwtToken);
+        log.debug("디버그: " + jwtToken);
 
         // JWT토큰 응답
         customJwtResponse(jwtToken, userPS, resp);

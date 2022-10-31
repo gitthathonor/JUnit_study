@@ -136,7 +136,7 @@ public class BoardApiControllerTest {
 
         // when
         ResultActions resultActions = mvc
-                .perform(post("/board").content(body)
+                .perform(post("/s/board").content(body)
                         .contentType("application/json; charset=utf-8").accept(APPLICATION_JSON)
                         .session(session));
 
@@ -174,7 +174,7 @@ public class BoardApiControllerTest {
 
         // when
         ResultActions resultActions = mvc
-                .perform(put("/board/" + id).content(body)
+                .perform(put("/s/board/" + id).content(body)
                         .contentType("application/json; charset=utf-8").accept("application/json; charset=utf-8")
                         .session(session));
 
@@ -193,7 +193,7 @@ public class BoardApiControllerTest {
 
         // when
         ResultActions resultActions = mvc
-                .perform(delete("/board/" + id)
+                .perform(delete("/s/board/" + id)
                         .accept(APPLICATION_JSON)
                         .session(session));
 

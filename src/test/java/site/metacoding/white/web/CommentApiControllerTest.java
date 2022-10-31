@@ -33,7 +33,7 @@ import site.metacoding.white.util.SHA256;
 @Transactional // 트랜잭션 안붙이면 영속성 컨텍스트에서 DB로 flush 안됨 (Hibernate 사용시)
 @AutoConfigureMockMvc // MockMvc Ioc 컨테이너에 등록
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK) // 가짜 환경으로 실행
-public class CommentApiController {
+public class CommentApiControllerTest {
 
     private static final String APPLICATION_JSON = "application/json; charset=utf-8";
 
@@ -104,7 +104,7 @@ public class CommentApiController {
 
         // when
         ResultActions resultActions = mvc
-                .perform(MockMvcRequestBuilders.post("/comment").content(body)
+                .perform(MockMvcRequestBuilders.post("/s/comment").content(body)
                         .contentType(APPLICATION_JSON).accept(APPLICATION_JSON)
                         .session(session));
 
@@ -121,7 +121,7 @@ public class CommentApiController {
 
         // when
         ResultActions resultActions = mvc
-                .perform(MockMvcRequestBuilders.delete("/comment/" + id)
+                .perform(MockMvcRequestBuilders.delete("/s/comment/" + id)
                         .accept(APPLICATION_JSON)
                         .session(session));
 

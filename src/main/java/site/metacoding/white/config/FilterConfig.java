@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import site.metacoding.white.config.auth.JwtAuthenticationFilter;
+import site.metacoding.white.config.auth.JwtAuthorizationFilter;
 import site.metacoding.white.domain.UserRepository;
 
 @RequiredArgsConstructor
@@ -33,6 +35,19 @@ public class FilterConfig {
         FilterRegistrationBean<JwtAuthenticationFilter> bean = new FilterRegistrationBean<>(
                 new JwtAuthenticationFilter(userRepository));
         bean.addUrlPatterns("/login");
+        bean.setOrder(1); // 낮은 순서대로 필터가 실행
+        return bean;
+    }
+
+    @Profile("dev")
+    @Bean
+    public FilterRegistrationBean<JwtAuthorizationFilter> JwtAuthorizationFilterRegister() {
+        log.debug("디버그 : 인가 필터 등록");
+        FilterRegistrationBean<JwtAuthorizationFilter> bean = new FilterRegistrationBean<>(
+                new JwtAuthorizationFilter());
+        // url 패턴을 적을 때는 걸러낼 수 있도록 주소를 짜는 것이 좋다.
+        bean.addUrlPatterns("/s/*");
+        bean.setOrder(2); // 이거 다음에는 DS로 직행
         return bean;
     }
 }
